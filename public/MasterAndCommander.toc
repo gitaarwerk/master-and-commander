@@ -1,0 +1,16 @@
+## Title: Master and Commander
+## Interface: 90005
+## X-Min-Interface: 90005
+## Version: 9.0.26
+## Author: Darkrider, Talnivarr (EU)
+## Notes: Paladin tank addon
+## SavedVariablesPerCharacter: MasterAndCommanderStuff
+## LoadOnDemand: 0
+## DefaultState: enabled
+## X-Category: Fun, Communication, Miscellaneous
+## X-Date: June. 11, 2021
+## X-License: All Rights Reserved
+## X-Website: https://www.curseforge.com/wow/addons/master-and-commander
+## X-Curse-Project-ID: 4095
+
+
