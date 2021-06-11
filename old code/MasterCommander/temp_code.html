@@ -1,0 +1,178 @@
+	
+	-- initialize warnings	(crusader strike)
+	local var_CrusaderStrikePaladinChannel = CrusaderStrikePaladinChannel:GetChecked();
+	local var_CrusaderStrikePaladinChannel2 = CrusaderStrikePaladinChannel2:GetChecked();
+	local var_CrusaderStrikeSayInSay = CrusaderStrikeSayInSay:GetChecked();
+	
+	
+	
+
+	local var_AvengerResistAnnounceToRaid = AvengerResistAnnounceToRaid:GetChecked();
+	local var_AvengerResistSayInRaid = AvengerResistSayInRaid:GetChecked();
+	local var_AvengerResistSayInSay = AvengerResistSayInSay:GetChecked();
+	local var_AvengerResistPaladinChannel = AvengerResistPaladinChannel:GetChecked();
+	local var_AvengerResistPaladinChannel2 = AvengerResistPaladinChannel2:GetChecked();
+	
+	
+	-- Warnings
+	
+	cmissed = 0;
+	missed = 0;
+	spell1 = 'Crusader Strike';
+	
+	spell3 = 'Avenger\'s Shield';
+	
+	if( string.find(arg1, spell1, 1))  then
+		if( string.find(arg1, "resisted", 1))  then
+			cmissed = 1;
+		end
+		if( string.find(arg1, "parried", 1))  then
+			cmissed = 1;
+		end
+		if( string.find(arg1, "dodged", 1))  then
+			cmissed = 1;
+		end
+		if( string.find(arg1, "missed", 1))  then
+			cmissed = 1;
+		end
+		if( string.find(arg1, "immune", 1))  then
+			cmissed = 1;
+		end	
+	else
+		cmissed = 0;
+	end	
+
+	if( string.find(arg1, spell1, 1))  then
+			if(cmissed == 1) then
+				if(var_CrusaderStrikeSayInSay == 1) then
+					SendChatMessage('Crusader Strike not applied!' , "SAY", nil, index);
+				end
+				if(var_CrusaderStrikePaladinChannel == 1) then
+					local PalaChannel = GetChannelName(var_PaladinChannel) ;
+					SendChatMessage('Crusader Strike not applied!' , "CHANNEL", nil, PalaChannel); 
+				end					
+			end
+	end
+
+	
+	if( string.find(arg1, spell2, 1))  then
+		if( string.find(arg1, "resisted", 1))  then
+			missed = 1;
+		end
+		if( string.find(arg1, "parried", 1))  then
+			missed = 1;
+		end
+		if( string.find(arg1, "dodged", 1))  then
+			missed = 1;
+		end
+		if( string.find(arg1, "missed", 1))  then
+			missed = 1;
+		end	
+		if( string.find(arg1, "immune", 1))  then
+			missed = 2;
+		end
+	else
+		missed = 0;
+	end	
+		
+		
+	if( string.find(arg1, spell2, 1))  then	
+	
+
+							
+
+
+
+					string = string.sub(arg1, 30);
+					
+					if(var_TauntedSayInRaid == 1) then
+						var_party = 0; 
+						var_raid= 0;
+						if(UnitInParty("player") == 1) then
+							var_party = 1;			
+								if(UnitInRaid("player") == 1) then
+									var_raid = 1;
+								end
+						end
+						
+						
+						
+						if(var_raid == 1) then
+							SendChatMessage(UnitName("player")..' has taunted'..string , "RAID", nil, index); 
+						else
+							if(var_party == 1) then
+								SendChatMessage(UnitName("player")..' has taunted'..string , "PARTY", nil, index); 
+							end
+						end							
+					end
+					
+					if(var_TauntedSayInSay == 1) then
+						SendChatMessage(UnitName("player")..' has taunted'..string , "SAY", nil, index);
+					end		
+
+	end
+	
+	if( string.find(arg1, spell3, 1))  then
+		if( string.find(arg1, "resisted", 1))  then
+			amissed = 1;
+		end
+		if( string.find(arg1, "parried", 1))  then
+			amissed = 1;
+		end
+		if( string.find(arg1, "dodged", 1))  then
+			amissed = 1;
+		end
+		if( string.find(arg1, "missed", 1))  then
+			amissed = 1;
+		end	
+		if( string.find(arg1, "immune", 1))  then
+			amissed = 1;
+		end
+	else
+		amissed = 0;
+	end	
+	
+			if(amissed == 1) then
+		
+			
+				if(var_AvengerResistAnnounceToRaid == 1) then
+					SendChatMessage('Avenger\'s Shield missed '..UnitName("target") , "RAID_WARNING", nil, index); 
+				end
+				
+				if(var_AvengerResistSayInRaid == 1) then
+					var_party = 0; 
+					var_raid = 0;
+					
+					if(UnitInParty("player") == 1) then
+						var_party = 1;			
+							if(UnitInRaid("player") == 1) then
+								var_raid = 1;
+							end					
+					end
+					
+					if(var_raid == 1) then
+						SendChatMessage('Avenger\'s Shield missed '..UnitName("target") , "RAID", nil, index); 
+					else
+						if(var_party == 1) then
+							SendChatMessage('Avenger\'s Shield missed '..UnitName("target"), "PARTY", nil, index); 
+						end
+					end						
+				end	
+				
+				if(var_AvengerResistSayInSay  == 1) then
+					SendChatMessage('Avenger\'s Shield missed '..UnitName("target") , "SAY", nil, index);
+				end
+				
+				if(var_AvengerResistPaladinChannel == 1) then
+					local PalaChannel = GetChannelName(var_PaladinChannel) ;
+					SendChatMessage('Avenger\'s Shield missed '..UnitName("target") , "CHANNEL", nil, PalaChannel); 
+				end	
+
+				if(var_AvengerResistPaladinChannel2 == 1) then
+					local PalaChannel2 = GetChannelName(var_PaladinChannel2) ;
+					SendChatMessage('Avenger\'s Shield missed '..UnitName("target") , "CHANNEL", nil, PalaChannel2); 
+				end													
+			end		
+
+
+

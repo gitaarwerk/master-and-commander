@@ -1,0 +1,561 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+   <Script file="MasterStats.lua"/> 
+
+   <Frame name="StatsFrame" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="false" parent="UIParent">
+       <Size>
+           <AbsDimension x="540" y="700"/>
+       </Size>
+       <Anchors>
+           <Anchor point="CENTER"/>
+           <Offset><AbsDimension x="-200" y="200"/></Offset>
+       </Anchors>
+       <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+           <BackgroundInsets>
+               <AbsInset left="11" right="12" top="12" bottom="11"/>
+           </BackgroundInsets>
+           <TileSize>
+               <AbsValue val="32"/>
+           </TileSize>
+           <EdgeSize>
+               <AbsValue val="32"/>
+           </EdgeSize>
+		   <Color r="0" g="0" b="0" a="0.98" /> 
+       </Backdrop>
+       <Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parent_Background" setAllPoints="true">
+								<!-- Texture has blue color wit 50% alpha -->
+				  <Color r="0" g="0" b="0" a="0.65" />
+				</Texture> 	   
+			</Layer>
+           <Layer level="ARTWORK">
+		   		<!-- ### Title ### -->
+               <Texture name="StatsFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
+                   <Size>
+                       <AbsDimension x="356" y="64"/>
+                   </Size>
+                   <Anchors>
+                       <Anchor point="TOP">
+                           <Offset>
+                               <AbsDimension x="0" y="12"/>
+                           </Offset>
+                       </Anchor>
+                   </Anchors>
+               </Texture>
+               <FontString inherits="GameFontNormal" text="Character stats">
+                   <Anchors>
+                       <Anchor point="TOP" relativeTo="StatsFrameHeader">
+                           <Offset>
+                               <AbsDimension x="0" y="-14"/>
+                           </Offset>
+                       </Anchor>
+                   </Anchors>
+               </FontString>
+           </Layer>
+       </Layers>
+	   
+	   
+	   <!-- **** DAMAGE COEFFICIENTS **** -->
+       <Frames>
+           <Frame name="TabStatsDamage" hidden="false">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+					   <FontString name="StatsFrameAbility" inherits="GameFontNormal" text="|cffffffffDamage abilities">
+							   <Anchors>
+								   <Anchor point="TOPLEFT">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+			
+						 <FontString name="StatsFrameAbility" inherits="GameFontNormal" text="|cffffffffAverage output">
+							   <Anchors>
+								   <Anchor point="TOPLEFT">
+									   <Offset>
+										   <AbsDimension x="320" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+							 <FontString name="StatsFrameAbility" inherits="GameFontNormal" text="|cff00aaffSeals &amp; Judgements">
+								   <Anchors>
+									   <Anchor point="TOPLEFT">
+										   <Offset>
+											   <AbsDimension x="20" y="-60"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+						   <!-- output -->	
+						   		<!-- righteousness -->
+							   <FontString name="SoRighteousness" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-80"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_SoRighteousness" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-80"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+							   <FontString name="JoRighteousness" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-100"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+						   <FontString name="sp_JoRighteousness" inherits="GameFontNormal" text="">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="320" y="-100"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>							   						   							   						   
+						   	<!-- Command -->
+							   <FontString name="SoCommand" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-130"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_SoCommand" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-130"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="JoCommand" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-150"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_JoCommand" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-150"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+						   	<!-- SotMartyr -->
+							   <FontString name="SotMartyr" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-180"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_SotMartyr" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-180"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="JotMartyr" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-200"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_JotMartyr" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-200"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+						   	<!-- SotMartyr -->
+							   <FontString name="SoCorruption" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-230"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_SoCorruption" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-230"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="JoCorruption" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-250"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_JoCorruption" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-250"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+						   	<!-- Judgements -->
+							   <FontString name="JudgementDamage" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-280"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_JudgementDamage" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-280"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>			
+
+						<!-- damage spells -->
+							 <FontString name="StatsFrameAbility" inherits="GameFontNormal" text="|cff00aaffSpells">
+								   <Anchors>
+									   <Anchor point="TOPLEFT">
+										   <Offset>
+											   <AbsDimension x="20" y="-310"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+						   	<!-- holy -->
+							   <FontString name="Consecration" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-330"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_Consecration" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-330"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="Exorcism" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-350"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_Exorcism" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-350"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="HolyWrath" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-370"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_HolyWrath" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-370"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+ 							   <FontString name="HolyShock" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-390"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_HolyShock" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-390"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>								   
+						<!-- protection -->						   								   								   							      								   						 							   <FontString name="HolyShield" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-420"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_HolyShield" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-420"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+ 							   <FontString name="ShieldOfRighteousness" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-440"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_ShieldOfRighteousness" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-440"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>								   	  							   							   								   							
+ 							   <FontString name="AvengerShield" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-460"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_AvengerShield" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-460"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+ 							   <FontString name="HotRighteous" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-480"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_HotRighteous" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-480"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+
+							<!-- Retribution -->
+ 							   <FontString name="CrusaderStrike" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-510"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_CrusaderStrike" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-510"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>	
+ 							   <FontString name="DivineStorm1" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-530"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_DivineStorm1" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-530"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+ 							   <FontString name="DivineStorm2" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="20" y="-550"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>
+							   <FontString name="sp_DivineStorm2" inherits="GameFontNormal" text="">
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="320" y="-550"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							   </FontString>							   							   						   
+							   							   										   
+                   </Layer>
+               </Layers>
+               <Frames>
+               </Frames> 
+			   
+			   
+			   
+           </Frame>   
+           <Frame name="TabStatsEffects" hidden="true">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+                       <FontString inherits="GameFontNormal" text="Affected Effects">
+                           <Anchors>
+                               <Anchor point="TOPLEFT" relativeTo="$parent">
+                                   <Offset>
+                                       <AbsDimension x="20" y="-30"/>
+                                   </Offset>
+                               </Anchor>
+                           </Anchors>
+                       </FontString>
+                   </Layer>
+               </Layers>
+               <Frames>
+               </Frames> 
+           </Frame>
+           <Button name="$parentTab1" inherits="CharacterFrameTabButtonTemplate" id="1" text="Damage output">
+               <Anchors>
+                   <Anchor point="CENTER" relativePoint="BOTTOMLEFT">
+                       <Offset>
+                           <AbsDimension x="60" y="-8"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(StatsFrame, 1);
+                       TabStatsDamage:Show();
+                       TabStatsEffects:Hide();
+                   </OnClick>
+               </Scripts>
+           </Button>
+           <Button name="$parentTab2" inherits="CharacterFrameTabButtonTemplate" id="2" text="Affected effects">
+               <Anchors>
+                   <Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
+                       <Offset>
+                           <AbsDimension x="-16" y="0"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(StatsFrame, 2);
+                       TabStatsDamage:Hide();
+                       TabStatsEffects:Show();
+                   </OnClick>
+               </Scripts>
+           </Button>
+       </Frames>
+       <Scripts>
+           <OnLoad>
+               this.elapsed = 0;
+               PanelTemplates_SetNumTabs(StatsFrame, 2);
+               PanelTemplates_SetTab(StatsFrame, 1);
+			   SpellStats();
+           </OnLoad>
+           <OnShow>
+               PlaySound("UChatScrollButton");
+               PanelTemplates_SetTab(StatsFrame, 1);
+               TabStatsDamage:Show()
+               TabStatsEffects:Hide()
+           </OnShow>
+           <OnMouseDown>this:StartMoving();</OnMouseDown>
+           <OnMouseUp>this:StopMovingOrSizing(); </OnMouseUp>
+           <OnDragStop>this:StopMovingOrSizing(); </OnDragStop>		   		   
+           <OnHide>
+               PlaySound("UChatScrollButton");
+           </OnHide>
+       </Scripts>
+   </Frame>
+
+
+</Ui>

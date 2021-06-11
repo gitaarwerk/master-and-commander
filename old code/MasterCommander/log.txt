@@ -1,0 +1,23 @@
+0.22b ------------------
+- protectorhud will now show Righteous Fury when it's on or off,flash bugs out.
+- mobs / bosses who are immune to righteous defense, will now show "IMMUNE" without anyone else seeing it. 
+- buid in warning system which is consistent and showing in middle. Warning system applies on: Righteous Fury, Crusader Aura
+- avoidance calculation
+
+0.21b -----------------
+- hud will now lay proper under bags
++ unloads when your class aint a paladin
++ fixed bug where the addon doesnt really load
+
+
+
+0.20b -----------------
+- made background darker from the configuration menu
+- removed alpha notification on load
+- removed unused files and codes
+- fixed tell in raid for avenger's shield
+- corrected some grammar in warning messages
+- added the crusader aura warning for combat
+- moved the pull message in combat tab in config pane up where it had to be & entered a correct title
+- hud(s) now scalable
+- can only be dragged using the CTRL button now

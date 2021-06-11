@@ -1,0 +1,16 @@
+Credits:
+
+general support:
+James Boekbinder
+
+helping with testing:
+Sueyen
+Serego
+Tranqje
+
+Being sexy:
+Micha
+
+
+information about lua:
+tattersail

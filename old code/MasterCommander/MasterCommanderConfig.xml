@@ -1,0 +1,973 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Script file="MasterCommanderConfig.lua"/>
+
+  <Frame name="ConfigFrame" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true" parent="UIParent">
+       <Size>
+           <AbsDimension x="540" y="540"/>
+       </Size>
+       <Anchors>
+           <Anchor point="CENTER"/>
+           <Offset><AbsDimension x="-200" y="200"/></Offset>
+       </Anchors>
+       <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+           <BackgroundInsets>
+               <AbsInset left="11" right="12" top="12" bottom="11"/>
+           </BackgroundInsets>
+           <TileSize>
+               <AbsValue val="32"/>
+           </TileSize>
+           <EdgeSize>
+               <AbsValue val="32"/>
+           </EdgeSize>
+		   <Color r="0" g="0" b="0" a="0.98" /> 
+       </Backdrop>
+       <Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parent_Background" setAllPoints="true">
+								<!-- Texture has blue color wit 50% alpha -->
+				  <Color r="0" g="0" b="0" a="0.65" />
+				</Texture> 	   
+			</Layer>
+           <Layer level="ARTWORK">
+               <Texture name="myFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
+                   <Size>
+                       <AbsDimension x="356" y="64"/>
+                   </Size>
+                   <Anchors>
+                       <Anchor point="TOP">
+                           <Offset>
+                               <AbsDimension x="0" y="12"/>
+                           </Offset>
+                       </Anchor>
+                   </Anchors>
+               </Texture>
+               <FontString inherits="GameFontNormal" text="Master &amp; Commander">
+                   <Anchors>
+                       <Anchor point="TOP" relativeTo="myFrameHeader">
+                           <Offset>
+                               <AbsDimension x="0" y="-14"/>
+                           </Offset>
+                       </Anchor>
+                   </Anchors>
+               </FontString>
+           </Layer>
+       </Layers>
+       <Frames>
+	   	<!-- close -->
+			<Button name="$parentButtonClose" inherits="UIPanelCloseButton" >
+			<Anchors>
+				<Anchor point="TOPRIGHT">
+				<Offset><AbsDimension x="-10" y="-10"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>ConfigFrame:Hide(); </OnClick>
+			</Scripts>
+		</Button>
+			   
+			   
+			 <!-- BASIC CONFIGURATION -->
+           <Frame name="myTabPage1" hidden="false">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+						   <FontString inherits="GameFontNormal" text="|cffffffffBasic Configuration">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+				   
+						   <FontString inherits="GameFontNormal" text="Channel 1">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-60"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+						   <FontString inherits="GameFontNormal" text="Channel 2">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="280" y="-60"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+						   
+						   <FontString inherits="GameFontNormal" text="HUD visibility OUT of combat">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-170"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+						   <FontString inherits="GameFontNormal" text="HUD visibility IN of combat">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="280" y="-170"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>	
+
+						   <FontString inherits="GameFontNormal" text="HUD scale">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-245"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+
+						   <FontString inherits="GameFontNormal" text="* hold the control button to be able to drag the HUD">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-320"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>							   
+						   						   							   			   
+                   </Layer>
+               </Layers>
+               <Frames>	
+			   
+			   			<!-- paladin channel -->	
+			           <EditBox name="PaladinChannel" inherits="InputBoxTemplate" id="15">
+							 <Size> 
+							  <AbsDimension x="150" y="26"/> 
+							</Size> 
+						   <Anchors>
+							   <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="30" y="-80"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<Scripts>
+								<OnShow>
+									this:ClearFocus();
+									this:SetMaxLetters(30);
+									this:SetAutoFocus( false );
+								</OnShow>
+								<OnChar>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel = this:GetText();</OnChar>
+								<OnLeave>
+									this:ClearFocus();
+									MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel = this:GetText();
+								</OnLeave>
+								<OnEnter>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel = this:GetText();</OnEnter>
+								<OnKeyUp>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel = this:GetText();</OnKeyUp>
+								<OnTextChanged>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel = this:GetText();</OnTextChanged>
+						</Scripts>          
+					</EditBox>
+
+
+			   			<!-- paladin channel -->	
+			           <EditBox name="PaladinChannel2" inherits="InputBoxTemplate" id="16">
+							 <Size> 
+							  <AbsDimension x="150" y="26"/> 
+							</Size> 
+						   <Anchors>
+							   <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="250" y="-80"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<Scripts>
+								<OnShow>
+									this:ClearFocus();
+									this:SetMaxLetters(30);
+									this:SetAutoFocus( false );
+								</OnShow>
+								<OnChar>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel2 = this:GetText();</OnChar>
+								<OnLeave>
+									this:ClearFocus();
+									MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel2 = this:GetText();
+								</OnLeave>
+								<OnEnter>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel2 = this:GetText();</OnEnter>
+								<OnKeyUp>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel2 = this:GetText();</OnKeyUp>
+								<OnTextChanged>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].Channel2 = this:GetText();</OnTextChanged>
+						</Scripts>          
+					</EditBox>					
+					
+
+                <Slider name="HudOutCombat" inherits="OptionsSliderTemplate"  minValue="0" maxValue="100" valueStep="5">
+                        <Anchors>
+                                <Anchor point="TOPLEFT">
+                                        <Offset>
+                                                <AbsDimension x="65" y="-200" />
+                                        </Offset>
+                                </Anchor>
+                        </Anchors>
+                        <Scripts>
+                                <OnLoad>
+                                </OnLoad>
+                                <OnValueChanged> <!-- we need to update the text on value change -->
+									MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].HudOutCombat = this:GetValue();
+									SetHudVisibilityDown();
+									getglobal(this:GetName().."Text"):SetText(getglobal(this:GetName()):GetValue());
+                                </OnValueChanged>
+                        </Scripts>
+                </Slider>					
+
+
+                <Slider name="HudInCombat" inherits="OptionsSliderTemplate"  minValue="0" maxValue="100" valueStep="5">
+                        <Anchors>
+                                <Anchor point="TOPLEFT">
+                                        <Offset>
+                                                <AbsDimension x="315" y="-200" />
+                                        </Offset>
+                                </Anchor>
+                        </Anchors>
+                        <Scripts>
+                                <OnLoad>
+                               </OnLoad>
+                                <OnValueChanged> <!-- we need to update the text on value change -->
+									MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].HudInCombat = this:GetValue();
+									SetHudVisibilityUp();
+									getglobal(this:GetName().."Text"):SetText(getglobal(this:GetName()):GetValue());
+                                </OnValueChanged>
+                        </Scripts>
+                </Slider>	
+				
+
+                <Slider name="HudScale" inherits="OptionsSliderTemplate"  minValue="50" maxValue="100" valueStep="5">
+                        <Anchors>
+                                <Anchor point="TOPLEFT">
+                                        <Offset>
+                                                <AbsDimension x="65" y="-275" />
+                                        </Offset>
+                                </Anchor>
+                        </Anchors>
+                        <Scripts>
+                                <OnLoad>
+                               </OnLoad>
+                                <OnValueChanged> <!-- we need to update the text on value change -->
+									MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].HudScale = this:GetValue();
+									getglobal(this:GetName().."Text"):SetText(getglobal(this:GetName()):GetValue());
+									SetHudScale(MasterCommander_Conf_SelectedHudType);
+                                </OnValueChanged>
+                        </Scripts>
+                </Slider>					
+											
+             	</Frames> 
+			</Frame>
+			
+           <Frame name="myTabPage2" hidden="false">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+						   <FontString inherits="GameFontNormal" text="|cffffffffHealing &amp; Support">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+						   
+						   <FontString inherits="GameFontNormal" text="Divine Intervention">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-60"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>  
+					  </Layer>
+               </Layers>
+               <Frames>
+						<CheckButton name="DivineInterventionSayInRaid" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-75"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in raidchat (or partychat)"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].DivineInterventionSayInRaid = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+
+						<CheckButton name="DivineInterventionAnnounceToRaid" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-100"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in raidwarning"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].DivineInterventionAnnounceToRaid = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>							
+							
+
+						<CheckButton name="DivineInterventionPaladinChannel" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-125"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to channel"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].DivineInterventionPaladinChannel = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+
+
+						<CheckButton name="DivineInterventionPaladinChannel2" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-150"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to channel 2"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].DivineInterventionPaladinChannel2 = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>	
+             	</Frames> 
+			</Frame>
+			
+			
+			<!-- tanking pane -->
+           <Frame name="myTabPage3" hidden="false">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+						   <FontString inherits="GameFontNormal" text="|cffffffffTanking">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+                       <FontString inherits="GameFontNormal" text="Avenger's Shield misses">
+                           <Anchors>
+                               <Anchor point="TOPLEFT" relativeTo="$parent">
+                                   <Offset>
+                                       <AbsDimension x="20" y="-60"/>
+                                   </Offset>
+                               </Anchor>
+                           </Anchors>
+                       </FontString>					   
+
+
+                       <FontString inherits="GameFontNormal" text="Taunt resist">
+                           <Anchors>
+                               <Anchor point="TOPLEFT" relativeTo="$parent">
+                                   <Offset>
+                                       <AbsDimension x="280" y="-60"/>
+                                   </Offset>
+                               </Anchor>
+                           </Anchors>
+                       </FontString>
+							   						   
+						   <FontString inherits="GameFontNormal" text="Taunt successfull">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="280" y="-220"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>  			   
+
+						   <FontString inherits="GameFontNormal" text="Remove all harmful spells as tank (Hand of Protection,Hand of Salvation,">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-320"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString> 
+						   
+						  <FontString inherits="GameFontNormal" text="Divine Shield, Vigilance)">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-340"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString> 	
+
+						  <FontString inherits="GameFontNormal" text="Delaytime before tharmful buffs are removed">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-400"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString> 						   				   
+						   
+						   
+
+                   </Layer>
+               </Layers>
+               <Frames>					
+			   
+			   				<!-- Taunted resisted!! -->
+							<CheckButton name="TauntResistAnnounceToRaid" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="280" y="-75"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to raid or party"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].TauntResistAnnounceToRaid = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton> 
+						
+						<CheckButton name="TauntResistSayInSay" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="280" y="-125"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in say"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].TauntResistSayInSay = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>						
+
+						<CheckButton name="TauntResistPaladinChannel" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="280" y="-150"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to channel"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].TauntResistPaladinChannel = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+
+
+						<CheckButton name="TauntResistPaladinChannel2" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="280" y="-175"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to channel 2"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].TauntResistPaladinChannel2 = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>						
+
+
+						<!-- Taunted!! -->
+						<CheckButton name="TauntedSayInRaid" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="280" y="-235"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in raidchat (or partychat)"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].TauntedSayInRaid = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+
+						<CheckButton name="TauntedSayInSay" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="280" y="-260"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in say"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].TauntedSayInSay = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+						
+						<!-- Avenger's Shield -->
+						<CheckButton name="AvengerResistAnnounceToRaid" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-75"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to raid or party"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].AvengerResistAnnounceToRaid = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+											
+						
+						<CheckButton name="AvengerResistSayInSay" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-125"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in say"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].AvengerResistSayInSay = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>						
+
+
+
+						<!-- auto removal of harmful buffs -->
+						<CheckButton name="HarmingSpells" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-360"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Remove harmful spells automaticly"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].HarmingSpells = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+
+
+                <Slider name="RemovalDelay" inherits="OptionsSliderTemplate"  minValue="0" maxValue="2" valueStep="0.5">
+                        <Anchors>
+                                <Anchor point="TOPLEFT">
+                                        <Offset>
+                                                <AbsDimension x="25" y="-435" />
+                                        </Offset>
+                                </Anchor>
+                        </Anchors>
+                        <Scripts>
+                                <OnLoad>
+                               </OnLoad>
+                                <OnValueChanged> <!-- we need to update the text on value change -->
+									MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].RemovalDelay = this:GetValue();
+									getglobal(this:GetName().."Text"):SetText(getglobal(this:GetName()):GetValue()..' seconds delay');
+                                </OnValueChanged>
+                        </Scripts>
+                </Slider>						
+						      
+			</Frames>
+		</Frame>
+
+
+
+          <Frame name="myTabPage4" hidden="true">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+						   <FontString inherits="GameFontNormal" text="|cffffffffDPS/Battlegrounds">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+						   
+						   <FontString inherits="GameFontNormal" text="Crusader strike misses">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-60"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>						   
+					</Layer>
+			   </Layers>
+               <Frames>
+						<!-- Crusader strike missed!! -->
+						<CheckButton name="CrusaderStrikeSayInSay" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-75"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell in say"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].CrusaderStrikeSayInSay = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>
+						
+						<CheckButton name="CrusaderStrikePaladinChannel" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-100"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to paladin channel ("..PaladinChannel:GetText()..")"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].CrusaderStrikePaladinChannel = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>	
+
+
+						<CheckButton name="CrusaderStrikePaladinChannel2" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 						
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-125"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Announce to paladin channel 2 ("..PaladinChannel2:GetText()..")"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].CrusaderStrikePaladinChannel2 = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton>			   
+               </Frames> 
+           </Frame>
+		   
+
+          <Frame name="myTabPage5" hidden="true">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+						   <FontString inherits="GameFontNormal" text="|cffffffffCombat">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+						   
+						   <FontString inherits="GameFontNormal" text="Pulling with Avenger's Shield">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-60"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+						   
+
+						   <FontString inherits="GameFontNormal" text="Crusader Aura in combat">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-120"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>							   					   
+					</Layer>
+			   </Layers>
+               <Frames>
+						<!-- Avenger Pull messages -->
+						<CheckButton name="AvengerPullMessageAnnounceToRaid" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-75"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Tell who you are pulling with Avengers Shield in in raidwarning"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].AvengerPullMessageAnnounceToRaid = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton> 	
+
+
+						<!-- Gives warning when in combat and crusader aura on -->
+						<CheckButton name="AuraWarning" inherits="OptionsCheckButtonTemplate">
+							 <Size> 
+							  <AbsDimension x="25" y="25"/> 
+							</Size> 
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								<Offset><AbsDimension x="20" y="-135"/></Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad> getglobal(this:GetName().."Text"):SetText("Notifies when you\'re going into combat with Crusader aura on"); </OnLoad>
+								<OnClick>MasterCommanderConfig[MasterCommanderRealm][MasterCommanderChar].AuraWarning = this:GetChecked();</OnClick>
+							</Scripts>
+						</CheckButton> 							
+               </Frames> 
+           </Frame>		   
+		   
+
+           <Frame name="myTabPage6" hidden="true">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+    			  <Layer level="BACKGROUND"> 
+					<Texture name="$parentTexture" file="Interface\AddOns\MasterCommander\mc_bg">
+							<Size>
+									<AbsDimension x="512" y="512"/>  <!-- we use the half of the dimension as original -->
+							</Size>
+	
+							<Anchors>
+									<Anchor point="CENTER" relativePoint="CENTER">
+										<Offset>
+												<AbsDimension x="00" y="0"/>
+										</Offset>
+									</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>  <!-- these are the corners , 1 means it stretches the original image to Size. 2 means it places 2 images into the size -->
+					</Texture>	
+				   </Layer>				   
+                   <Layer level="ARTWORK">
+                       <FontString name="version_now" inherits="GameFontNormal" text="Version:">
+                           <Anchors>
+                               <Anchor point="BOTTOMLEFT" relativeTo="$parent">
+                                   <Offset>
+                                       <AbsDimension x="20" y="30"/>
+                                   </Offset>
+                               </Anchor>
+                           </Anchors>
+                       </FontString>
+                   </Layer>
+               </Layers>
+               <Frames>
+               </Frames> 
+           </Frame>		   
+		   
+           <Button name="$parentTab1" inherits="CharacterFrameTabButtonTemplate" id="1" text="Basic settings">
+               <Anchors>
+                   <Anchor point="LEFT" relativePoint="BOTTOMLEFT">
+                       <Offset>
+                           <AbsDimension x="0" y="-8"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(ConfigFrame, 1);
+                       myTabPage1:Show();
+                       myTabPage2:Hide();
+                       myTabPage3:Hide();
+					   myTabPage4:Hide();
+					   myTabPage5:Hide();
+					   myTabPage6:Hide();				   
+                   </OnClick>
+               </Scripts>
+           </Button>		   
+		   
+		   <!-- about -->
+		   
+           <Button name="$parentTab2" inherits="CharacterFrameTabButtonTemplate" id="2" text="Healing &amp; Support">
+               <Anchors>
+                   <Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
+                       <Offset>
+                           <AbsDimension x="-16" y="0"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(ConfigFrame, 2);
+                       myTabPage1:Hide();
+					   myTabPage2:Show();
+                       myTabPage3:Hide();
+					   myTabPage4:Hide();
+					   myTabPage5:Hide();
+					   myTabPage6:Hide();
+                   </OnClick>
+               </Scripts>
+           </Button>
+		   
+           <Button name="$parentTab3" inherits="CharacterFrameTabButtonTemplate" id="3" text="Tanking">
+               <Anchors>
+                   <Anchor point="LEFT" relativeTo="$parentTab2" relativePoint="RIGHT">
+                       <Offset>
+                           <AbsDimension x="-16" y="0"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(ConfigFrame, 3);
+                       myTabPage1:Hide();
+					   myTabPage2:Hide();
+                       myTabPage3:Show();
+					   myTabPage4:Hide();
+					   myTabPage5:Hide();
+					   myTabPage6:Hide();
+                   </OnClick>
+               </Scripts>
+           </Button>
+
+  
+
+           <Button name="$parentTab4" inherits="CharacterFrameTabButtonTemplate" id="4" text="DPS/Battlegrounds">
+               <Anchors>
+                   <Anchor point="LEFT" relativeTo="$parentTab3" relativePoint="RIGHT">
+                       <Offset>
+                           <AbsDimension x="-16" y="0"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(ConfigFrame, 4);
+                       myTabPage1:Hide();
+					   myTabPage2:Hide();
+					   myTabPage3:Hide();
+                       myTabPage4:Show();
+					   myTabPage5:Hide();
+					   myTabPage6:Hide();
+                   </OnClick>
+               </Scripts>
+           </Button>
+
+           <Button name="$parentTab5" inherits="CharacterFrameTabButtonTemplate" id="5" text="Combat">
+               <Anchors>
+                   <Anchor point="LEFT" relativeTo="$parentTab4" relativePoint="RIGHT">
+                       <Offset>
+                           <AbsDimension x="-16" y="0"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(ConfigFrame, 5);
+                       myTabPage1:Hide();
+					   myTabPage2:Hide();
+					   myTabPage3:Hide();
+                       myTabPage4:Hide();
+					   myTabPage5:Show();
+					   myTabPage6:Hide();
+                   </OnClick>
+               </Scripts>
+           </Button>		   
+
+           <Button name="$parentTab6" inherits="CharacterFrameTabButtonTemplate" id="6" text="About">
+               <Anchors>
+                   <Anchor point="LEFT" relativeTo="$parentTab5" relativePoint="RIGHT">
+                       <Offset>
+                           <AbsDimension x="-16" y="0"/>
+                       </Offset>
+                   </Anchor>
+               </Anchors>
+               <Scripts>
+                   <OnClick>
+                       PanelTemplates_SetTab(ConfigFrame, 6);
+                       myTabPage1:Hide();
+					   myTabPage2:Hide();
+					   myTabPage3:Hide();
+                       myTabPage4:Hide();
+					   myTabPage5:Hide();
+					   myTabPage6:Show();
+                   </OnClick>
+               </Scripts>
+           </Button>		   	   
+		   		   
+       </Frames>
+	   
+
+       <Scripts>
+           <OnLoad>
+		  	   tinsert(UISpecialFrames,"ConfigFrame");
+
+               this.elapsed = 0;
+               PanelTemplates_SetNumTabs(ConfigFrame, 6);
+               PanelTemplates_SetTab(ConfigFrame, 1);
+   			   version_now:SetText('|cffffffffVersion 0.20b');
+			   ConfigFrame:SetAlpha(1);
+           </OnLoad>
+           <OnShow>
+		  	   PlaySound("UChatScrollButton");
+               PanelTemplates_SetTab(ConfigFrame, 1);
+               myTabPage1:Show();
+               myTabPage2:Hide();
+			   myTabPage3:Hide();
+		       myTabPage4:Hide();
+			   myTabPage6:Hide();
+           </OnShow>
+           <OnMouseDown> this:StartMoving();  </OnMouseDown>
+           <OnMouseUp>  this:StopMovingOrSizing(); </OnMouseUp>
+           <OnDragStop> this:StopMovingOrSizing(); </OnDragStop>
+		   <OnHide>PlaySound("UChatScrollButton");</OnHide>		   
+       </Scripts>
+   </Frame>
+
+</Ui>

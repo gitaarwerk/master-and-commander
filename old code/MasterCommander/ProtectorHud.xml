@@ -1,0 +1,493 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+   <Script file="ProtectorHud.lua"/> 
+
+ <GameTooltip name="AvoidanceTooltip" inherits="GameTooltipTemplate">
+   <Scripts>
+     <Onload>
+       this:SetOwner(UIParent, "ANCHOR_NONE");
+     </Onload>
+   </Scripts>
+ </GameTooltip>
+   
+  <Frame name="ProtectorFrame" toplevel="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="false" parent="UIParent">
+       <Size>
+           <AbsDimension x="487" y="487"/>
+       </Size>
+       <Anchors>
+           <Anchor point="CENTER"/>
+           <Offset><AbsDimension x="-200" y="200"/></Offset>
+       </Anchors>
+      <Frames>
+   
+			   
+			 <!-- BASIC CONFIGURATION -->
+           <Frame name="$parentframe_1" hidden="false">
+               <Anchors>
+                   <Anchor point="TOPLEFT"/>
+                   <Anchor point="BOTTOMRIGHT"/>
+               </Anchors>
+               <Layers>
+                   <Layer level="ARTWORK">
+
+				   
+						  <FontString name="TrgtName" inherits="GameFontNormal" text="">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="212" y="-50"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+						  <FontString name="ManaPercentage" inherits="GameFontNormal" text="">
+							  <Size>
+								<AbsDimension x="50" y="18"/>
+							  </Size>
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="345" y="-108"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+						  <FontString name="GotMana" inherits="GameFontNormal" text="">
+							  <Size>
+								<AbsDimension x="150" y="18"/>
+							  </Size>
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="180" y="-108"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>						   
+
+						  <FontString name="HealthPercentage" inherits="GameFontNormal" text="">
+							  <Size>
+								<AbsDimension x="80" y="20"/>
+							  </Size>
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="345" y="-77"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>								   									   					
+				   
+						   <FontString name="ManausageText" inherits="GameFontNormal" text="|cFFFFFFFF0">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="457" y="-107"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>
+
+
+						   <FontString name="Avoidance" inherits="GameFontNormal" text="|cFFFFFFFF0">
+							   <Anchors>
+								   <Anchor point="TOPLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="457" y="107"/>
+									   </Offset>
+								   </Anchor>
+							   </Anchors>
+						   </FontString>		
+						   
+   
+
+
+						<!-- healthbar -->
+						  <Texture name="MCHealthbar" file="Interface\AddOns\MasterCommander\Artwork\Health">
+							<Size>
+								<AbsDimension x="180" y="34"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-70"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>	
+
+						  <Texture name="MCHealthbarBG" file="Interface\AddOns\MasterCommander\Artwork\Health">
+							<Size>
+								<AbsDimension x="180" y="34"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-70"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>	
+						
+						
+						<!-- manabar -->
+						
+						  <Texture name="MCManabar" file="Interface\AddOns\MasterCommander\Artwork\Mana">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+						  <Texture name="MCManabarbg" file="Interface\AddOns\MasterCommander\Artwork\Mana">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>	
+
+						<!-- energy bar -->
+						
+						  <Texture name="MCEnergybar" file="Interface\AddOns\MasterCommander\Artwork\Energy">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+						  <Texture name="MCEnergybarbg" file="Interface\AddOns\MasterCommander\Artwork\Energy">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+
+
+						<!-- ragebar -->
+						<Texture name="MCRagebar" file="Interface\AddOns\MasterCommander\Artwork\Rage">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+						  <Texture name="MCRagebarbg" file="Interface\AddOns\MasterCommander\Artwork\Rage">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+
+						<!-- focusbar -->
+						<Texture name="MCFocusbar" file="Interface\AddOns\MasterCommander\Artwork\Rage">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+						  <Texture name="MCFocusbarbg" file="Interface\AddOns\MasterCommander\Artwork\Rage">
+							<Size>
+								<AbsDimension x="180" y="16"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="212" y="-110"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+
+						<!-- personal buffs -->
+						 <Texture name="MCRf_on" file="Interface\AddOns\MasterCommander\Artwork\Rf_on">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="458" y="-69"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+						 <Texture name="TextureAdON" file="Interface\AddOns\MasterCommander\Artwork\Ad_on">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="447" y="-40"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+
+						 <Texture name="MCRf_off" file="Interface\AddOns\MasterCommander\Artwork\Rf_off">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="458" y="-69"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+						
+						 <Texture name="TextureAdOFF" file="Interface\AddOns\MasterCommander\Artwork\Ad_off">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="447" y="-40"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>								
+						
+						<!-- Judgements on -->
+						 <Texture name="MCJotc_on" file="Interface\AddOns\MasterCommander\Artwork\Jotc_on">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="118" y="-50"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+
+						 <Texture name="MCJow_on" file="Interface\AddOns\MasterCommander\Artwork\Jow_on">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="111" y="-79"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>						
+
+						 <Texture name="MCJol_on" file="Interface\AddOns\MasterCommander\Artwork\Jol_on">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="123" y="-106"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+
+						<!-- judgements off -->
+						 <Texture name="MCJotc_off" file="Interface\AddOns\MasterCommander\Artwork\Jotc_off">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="118" y="-50"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+
+						 <Texture name="MCJow_off" file="Interface\AddOns\MasterCommander\Artwork\Jow_off">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="111" y="-79"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>						
+
+						 <Texture name="MCJol_off" file="Interface\AddOns\MasterCommander\Artwork\Jol_off">
+							<Size>
+								<AbsDimension x="23" y="23"/>
+							</Size>
+						   <Anchors>
+							  <Anchor point="TOPLEFT" relativeTo="$parent">
+								   <Offset>
+									   <AbsDimension x="123" y="-106"/>
+								   </Offset>
+							   </Anchor>
+						   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>						
+						
+						<!-- HUD -->
+						<Texture name="TextureAdOFF" file="Interface\AddOns\MasterCommander\Artwork\Protector">
+							<Size>
+								<AbsDimension x="512" y="512"/>
+							</Size>
+							<Anchors>
+								   <Anchor point="BOTTOMLEFT" relativeTo="$parent">
+									   <Offset>
+										   <AbsDimension x="20" y="-30"/>
+									   </Offset>
+								   </Anchor>
+							</Anchors>
+						</Texture>
+						
+						<!-- portrait  target target-->
+						  <Texture name="TTPortrait">
+							<Size>
+								<AbsDimension x="46" y="46"/>
+							</Size>
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="404" y="-55"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>	
+						
+						<!-- portrait -->
+						  <Texture name="NmyPortrait">
+							<Size>
+								<AbsDimension x="70" y="70"/>
+							</Size>
+								   <Anchors>
+									   <Anchor point="TOPLEFT" relativeTo="$parent">
+										   <Offset>
+											   <AbsDimension x="130" y="-50"/>
+										   </Offset>
+									   </Anchor>
+								   </Anchors>
+							<TexCoords left="0" right="1" top="0" bottom="1"/>
+						</Texture>
+                   </Layer>
+               </Layers>
+               <Frames>	
+			   		<!-- hier het framebuttons etc etc -->
+			   </Frames>
+			   
+			</Frame>
+
+		   		   
+       </Frames>
+	   
+
+       <Scripts>
+           <OnLoad>
+				this:RegisterEvent("PLAYER_AURAS_CHANGED");	
+				Needed_Buffs_OnUpdate();
+           </OnLoad>
+           <OnShow>
+			
+           </OnShow>
+		   <OnEvent>
+		   		if(event == "PLAYER_AURAS_CHANGED") then
+					Needed_Buffs_OnUpdate();
+				end
+		   </OnEvent>
+           <OnMouseDown> 
+			   if(IsControlKeyDown()) then
+				   this:StartMoving();
+				end
+		   </OnMouseDown>
+   
+           <OnMouseUp>  this:StopMovingOrSizing(); </OnMouseUp>
+           <OnDragStop> this:StopMovingOrSizing(); </OnDragStop>		
+		   <OnUpdate>
+		   				
+						Needed_Debuffs_OnUpdate(elapsed);
+						UnitHealth_OnUpdate(arg1);
+						
+						PlayerMana_OnUpdate(arg1, lastmana); 
+						
+							if( CheckAdNumber == 1)
+								then
+									 CheckAD_OnHealth();
+								else
+									<!-- ADefender:SetText('AD not found'); -->
+									
+							end						 
+			</OnUpdate>
+       </Scripts>
+   </Frame>
+
+</Ui>

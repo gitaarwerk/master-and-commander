@@ -1,0 +1,17 @@
+## Interface: 30002 
+## Title: Master and Commander
+## Notes: Currently yet in development, but sharing because of the taunt ability until new unitframes are ready.
+## Version: 0.16a
+## Author: Jordy Houtman (Wing)
+## SavedVariables: MasterCommanderConfig
+
+
+## X-eMail: http://www.jordyhoutman.com/contact.php
+## X-Website: http://www.jordyhoutman.com/contact.php
+## X-Category: Tank
+## X-Category: Paladin
+
+## 
+MasterCommanderConfig.xml
+MasterCommander.xml
+ProtectorHud.xml

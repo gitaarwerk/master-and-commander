@@ -1,0 +1,218 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+   <Script file="local_en.lua"/> 
+   <Script file="MasterCommander.lua"/> 
+   
+   <!-- Frame to handle all core events --> 
+   <Frame name="MasterCommander_core" frameStrata="HIGH"> 
+      <Scripts> 
+         <OnLoad> 
+			this:RegisterEvent("PLAYER_ENTERING_WORLD");
+            this:RegisterEvent("VARIABLES_LOADED");
+			
+			this:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+
+			this:RegisterEvent("UNIT_HEALTH");
+			this:RegisterEvent("UNIT_MANA");			
+			
+				
+			<!-- check for in or out of combat -->
+			this:RegisterEvent("PLAYER_REGEN_DISABLED");
+			this:RegisterEvent("PLAYER_REGEN_ENABLED");
+			
+		
+			<!-- default values -->
+			TimeSinceLastUpdate = 0;
+			TimeSinceLastUpdate2 = 0;
+		    TimeSinceLastUpdate3 = 0;
+			TimeSinceLastUpdate4 = 0;
+			TimeSinceLastUpdate5 = 0;
+			
+			CountCancelDelay = 0.00;
+			startCounting = 0;
+			
+			TimeSinceLastUpdateRF_CHECK = 0;
+			TimeSinceLastUpdateJ_CHECK = 0;
+			IsCastingAS = 0;
+			
+
+			<!-- version -->
+			Version_ = "Version 0.20b";
+			
+			
+			<!-- cehck spells -->
+
+			HarmingSpellList = 	{	[1] = "Hand of Protection", 
+									[2] = "Divine Shield",
+									[3] = "Hand of Salvation",
+									[4] = "Vigilance",
+								};
+			NumberOfHarmingSpells = 4;
+			
+			CheckAdNumber = CheckAD_OnLoad()
+			
+			<!-- configuration values-->
+			MasterCommander_variablesLoaded = false;
+		    MasterCommanderRealm = GetCVar("realmName");
+		    MasterCommanderChar = UnitName("player");
+			
+			<!-- default configuration -->
+			MasterCommander_Conf_HudOutCombat = 20;
+			MasterCommander_Conf_HudInCombat = 100;
+			
+			MasterCommander_Conf_Hud_X = 0;
+			MasterCommander_Conf_Hud_Y = 0;
+			
+			MasterCommander_Conf_HudScale = 100;
+			
+			MasterCommander_Conf_SelectedHudType = 'ProtectorFrame';
+			
+			<!-- set paladin channel -->
+			MasterCommander_Conf_Channel = '';
+			MasterCommander_Conf_Channel2 = '';
+			
+			<!-- warnings std off -->
+			MasterCommander_Conf_TauntResistAnnounceToRaid = false;
+			MasterCommander_Conf_TauntResistSayInSay = false;
+			MasterCommander_Conf_TauntResistPaladinChannel = false;
+			MasterCommander_Conf_TauntResistPaladinChannel2 = false;
+			
+			MasterCommander_Conf_TauntedSayInRaid = false;
+			MasterCommander_Conf_TauntedSayInSay = false;
+			
+			MasterCommander_Conf_CrusaderStrikeSayInSay = false;
+			MasterCommander_Conf_CrusaderStrikePaladinChannel = false;
+			MasterCommander_Conf_CrusaderStrikePaladinChannel2 = false;
+			
+			MasterCommander_Conf_DivineInterventionAnnounceToRaid = false;
+			MasterCommander_Conf_DivineInterventionPaladinChannel = false;
+			MasterCommander_Conf_DivineInterventionPaladinChannel2 = false;		
+			
+			MasterCommander_Conf_AvengerResistAnnounceToRaid = false;
+
+			MasterCommander_Conf_AvengerResistSayInSay = false;
+	
+
+			MasterCommander_Conf_AvengerPullMessageAnnounceToRaid = false;
+			
+			MasterCommander_Conf_AuraWarning = false;
+			
+			MasterCommander_Conf_HarmingSpells = false;
+			MasterCommander_Conf_RemovalDelay = 0;
+			
+			InCombat=0;
+
+
+         </OnLoad> 
+         <OnEvent> 
+			
+		 	<!-- load standards -->
+			if (event == "PLAYER_ENTERING_WORLD") then 
+				spell_RD = Check_SpellID("Righteous Defense");
+			end
+		 
+		  	<!-- LOAD CONFIGURATION -->	
+            if (event == "VARIABLES_LOADED") then 
+				
+				   MasterCommanderConfig_LoadVars();
+				   MasterCommander_initialize(); 
+				   CheckAD_OnLoad();	
+				   
+			   if(UnitClass("player")=="Paladin") then	
+					out('i am paladin!');
+				else
+					DisableAddOn("Master and Commander")
+				end
+	
+            end
+			
+
+			<!-- COMBAT Messages-->
+		
+			if(event == "COMBAT_LOG_EVENT_UNFILTERED") then
+				-- set Type
+				local type = select(2, ...)	
+				local spellId, spellName, sourceName = select(9, ...);
+				
+		
+				if(type=="SPELL_AURA_APPLIED") then
+						if(spellName=="Divine Intervention") then
+							Msg_Centre(spellName, arg4, arg7, arg2)
+						end
+
+						if(spellName=="Righteous Defense") then
+							Msg_Centre(spellName, arg4, arg7, arg2)
+						end						
+				end				
+									
+				-- Instant spellcasts						
+				if (type=="SPELL_CAST_SUCCESS") then
+
+					-- ***************** PROTECTION MESSAGES    ************************
+					-- Cast when pulling with avengers shield!
+					if(spellName=="Avenger\'s Shield") then
+						if(InCombat==0) then
+							ASPull(arg4, arg7);
+						end
+					end			
+				end
+				
+				
+				
+				-- Missing spells
+				if (type=="SPELL_MISSED") then
+
+					if(spellName=="Righteous Defense") then
+						Msg_Centre('Righteous Defense Resist', arg4, arg7, arg2);
+					end	
+
+					-- Avenger\'s shield resist
+					if(spellName=="Avenger's Shield") then
+						Msg_Centre('Avenger\'s Shield', arg4, arg7, arg2);
+					end											
+				end
+				
+			end
+			
+				
+			if(event == "PLAYER_AURAS_CHANGED") then
+				CancelSpellsToTank(0);
+								
+			end
+				
+			
+			
+			<!-- IN combat -->
+			if (event == "PLAYER_REGEN_DISABLED") then
+				InCombat=1;
+				SetHudVisibilityUp();
+				AuraWarningMessage();
+			end
+			
+			<!-- OUT combat -->
+			if (event == "PLAYER_REGEN_ENABLED") then
+				InCombat=0;
+				SetHudVisibilityDown();
+			end
+			
+			
+			
+			<!-- Check Ardent Defender active on < 35% health -->
+			if( CheckAdNumber == 1)
+				then
+					 CheckAD_OnHealth();
+			end	
+			
+         </OnEvent> 
+		<OnUpdate>
+			<!-- SET hud visibility when changed back after 4 seconds, so user can view it -->
+			SetHudVisibilityUpdate(elapsed);
+			CancelHarmingSpells(elapsed);
+			SetHudScale(MasterCommander_Conf_SelectedHudType);
+		
+		</OnUpdate>
+      </Scripts> 
+   </Frame> 
+
+
+</Ui>
+
