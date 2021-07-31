@@ -1,0 +1,94 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd"
+>
+  <Script file="Features/AuraWarning/AuraWarning.lua" />
+  <Frame name="MasterAndCommander_AuraWarningFrame" enableMouse="true" toplevel="true" frameStrata="HIGH" movable="true" hidden="true" parent="UIParent">
+    <Scripts>
+      <OnLoad>
+        self:RegisterEvent("ADDON_LOADED");
+        self:RegisterEvent("UNIT_AURA");
+        self:RegisterEvent("PLAYER_REGEN_ENABLED");
+        self:RegisterEvent("PLAYER_REGEN_DISABLED");
+        self:RegisterEvent("COMPANION_UPDATE");
+
+        hasCrusaderOn = false
+      </OnLoad>
+      <OnEvent>       
+        if (MasterAndCommanderVars.AuraWarning.isOn) then 
+          if ((event =="PLAYER_REGEN_DISABLED" and IsMounted() == false) or (event == "COMPANION_UPDATE" and UnitAffectingCombat("player") and IsMounted() == false)) then
+            for i = 1, 40 do
+              local name, icon, count, debuffType, duration, expirationTime, source  = UnitAura("player", i);
+            
+              if (name == "Crusader Aura" and source == "player") then
+                MasterAndCommander_AuraWarningFrame:Show();
+                hasCrusaderOn = true;
+
+                if (MasterAndCommanderVars.AuraWarning.sound) then 
+                  PlaySound(MasterAndCommanderVars.AuraWarning.sound, "MASTER");
+                end
+
+                break;
+              end   
+            end
+          end 
+
+          if (hasCrusaderOn and event =="UNIT_AURA" and ... == "player") then
+            for i = 1, 40 do
+              local name, icon, count, debuffType, duration, expirationTime, source = UnitBuff("player", i);
+
+              if ((name == "Concentration Aura" or name == "Retributionn Aura" or name == "Devotion Aura") and source == "player") then
+                hasCrusaderOn = false;
+                MasterAndCommander_AuraWarningFrame:Hide();
+                break;
+              end 
+            end
+          end 
+            
+          if (event == "PLAYER_REGEN_ENABLED") then
+            MasterAndCommander_AuraWarningFrame:Hide();
+            hasCrusaderOn = false;
+          end
+        end
+      </OnEvent>
+    </Scripts>
+    <Size>
+      <AbsDimension x="300" y="50" />
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER" />
+      <Offset>
+        <AbsDimension x="0" y="0" />
+      </Offset>
+    </Anchors>
+
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture name="$parent_Background" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.90" />
+        </Texture>
+        <FontString name="healthDescription" inherits="GameFontNormalSmall" text="Crusader Aura still on, switch to: ">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="20" y="-10" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>       
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="$parentButtonClose" inherits="UIPanelCloseButton" >
+        <Anchors>
+          <Anchor point="TOPRIGHT">
+          <Offset><AbsDimension x="0" y="0"/></Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():Hide()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

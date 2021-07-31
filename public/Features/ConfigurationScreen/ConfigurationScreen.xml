@@ -1,0 +1,248 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd"
+>
+  <Script file="Features/ConfigurationScreen/ConfigurationScreen.lua" />
+  <Frame name="MasterAndCommander_ConfigFrame" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="false" parent="UIParent">
+    <Size>
+        <AbsDimension x="540" y="540"/>
+    </Size>
+    <Anchors>
+        <Anchor point="CENTER"/>
+        <Offset><AbsDimension x="-200" y="200"/></Offset>
+    </Anchors>
+    <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+        <BackgroundInsets>
+            <AbsInset left="11" right="12" top="12" bottom="11"/>
+        </BackgroundInsets>
+        <TileSize>
+            <AbsValue val="32"/>
+        </TileSize>
+        <EdgeSize>
+            <AbsValue val="32"/>
+        </EdgeSize>
+    <Color r="0" g="0" b="0" a="0.98" /> 
+    </Backdrop>
+    <Layers>
+  <Layer level="BACKGROUND">
+    <Texture name="$parent_Background" setAllPoints="true">
+            <!-- Texture has blue color wit 50% alpha -->
+      <Color r="0" g="0" b="0" a="0.65" />
+    </Texture> 	   
+  </Layer>
+        <Layer level="ARTWORK">
+            <Texture name="myFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
+                <Size>
+                    <AbsDimension x="356" y="64"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP">
+                        <Offset>
+                            <AbsDimension x="0" y="12"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Texture>
+            <FontString inherits="GameFontNormal" text="Master &amp; Commander">
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="myFrameHeader">
+                        <Offset>
+                            <AbsDimension x="0" y="-14"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </FontString>
+        </Layer>
+    </Layers>
+    <Frames>
+    <!-- close button -->
+    <Button name="$parentButtonClose" inherits="UIPanelCloseButton" >
+      <Anchors>
+        <Anchor point="TOPRIGHT">
+        <Offset><AbsDimension x="-10" y="-10"/></Offset>
+        </Anchor>
+      </Anchors>
+      <Scripts>
+        <OnClick>MasterAndCommander_ConfigFrame:Hide(); </OnClick>
+      </Scripts>
+    </Button>
+      
+      
+    <!-- BASIC CONFIGURATION -->
+        <Frame name="myTabPage1" hidden="false">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+            <Layers>
+                <Layer level="ARTWORK">
+                    <FontString inherits="GameFontNormal" text="|cffffffffBasic Configuration">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent">
+                        <Offset>
+                            <AbsDimension x="20" y="-30"/>
+                        </Offset>
+                        </Anchor>
+                    </Anchors>
+                    </FontString>
+                </Layer>
+            </Layers>
+            <Frames>	
+      
+            		
+              <CheckButton name="StatsBarActivation" inherits="OptionsCheckButtonTemplate">
+                <Size> 
+                 <AbsDimension x="25" y="25"/> 
+               </Size> 						
+               <Anchors>
+                 <Anchor point="TOPLEFT">
+                 <Offset><AbsDimension x="20" y="-75"/></Offset>
+                 </Anchor>
+               </Anchors>
+               <Scripts>
+                 <OnLoad>
+                     getglobal(StatsBarActivation:GetName().."Text"):SetText("Live statistics bar");
+                </OnLoad>
+                 <OnClick>
+                     if ( StatsBarActivation:GetChecked() ) then 
+                        MasterAndCommander_StatisticsBar_Show()
+                    else 
+                        MasterAndCommander_StatisticsBar_Hide()
+                    end
+                     </OnClick>
+               </Scripts>
+             </CheckButton>
+
+             <CheckButton name="AuraWarningActivation" inherits="OptionsCheckButtonTemplate">
+                <Size> 
+                 <AbsDimension x="25" y="25"/> 
+               </Size> 						
+               <Anchors>
+                 <Anchor point="TOPLEFT">
+                 <Offset><AbsDimension x="20" y="-105"/></Offset>
+                 </Anchor>
+               </Anchors>
+               <Scripts>
+                 <OnLoad>
+                     getglobal(AuraWarningActivation:GetName().."Text"):SetText("Crusader aura warning");
+                </OnLoad>
+                 <OnClick>
+                     if ( AuraWarningActivation:GetChecked() ) then 
+                        MasterAndCommander_AuraWarning_On()
+                    else 
+                        MasterAndCommander_AuraWarning_Off()
+                    end
+                     </OnClick>
+               </Scripts>
+             </CheckButton>
+
+            </Frames> 
+        </Frame>
+  
+     
+  
+
+        <Frame name="myTabPage6" hidden="true">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+            <Layers>
+        <Layer level="BACKGROUND"> 
+      <Texture name="$parentTexture" file="Interface\AddOns\MasterCommander\mc_bg">
+          <Size>
+              <AbsDimension x="512" y="512"/>  <!-- we use the half of the dimension as original -->
+          </Size>
+
+          <Anchors>
+              <Anchor point="CENTER" relativePoint="CENTER">
+                <Offset>
+                    <AbsDimension x="00" y="0"/>
+                </Offset>
+              </Anchor>
+          </Anchors>
+          <TexCoords left="0" right="1" top="0" bottom="1"/>  <!-- these are the corners , 1 means it stretches the original image to Size. 2 means it places 2 images into the size -->
+      </Texture>	
+        </Layer>				   
+                <Layer level="ARTWORK">
+                    <FontString name="version_now" inherits="GameFontNormal" text="Version:">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent">
+                                <Offset>
+                                    <AbsDimension x="20" y="30"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </FontString>
+                </Layer>
+            </Layers>
+            <Frames>
+            </Frames> 
+        </Frame>		   
+    
+        <Button name="$parentTab1" inherits="CharacterFrameTabButtonTemplate" id="1" text="Basic settings">
+            <Anchors>
+                <Anchor point="LEFT" relativePoint="BOTTOMLEFT">
+                    <Offset>
+                        <AbsDimension x="0" y="-8"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>
+            <Scripts>
+                <OnClick>
+                    PanelTemplates_SetTab(ConfigFrame, 1);
+                    myTabPage1:Show();
+                    myTabPage2:Hide();				   
+                </OnClick>
+            </Scripts>
+        </Button>		   
+    
+    	   
+
+        <Button name="$parentTab6" inherits="CharacterFrameTabButtonTemplate" id="6" text="About">
+            <Anchors>
+                <Anchor point="LEFT" relativeTo="$parentTab5" relativePoint="RIGHT">
+                    <Offset>
+                        <AbsDimension x="-16" y="0"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>
+            <Scripts>
+                <OnClick>
+                    PanelTemplates_SetTab(ConfigFrame, 6);
+                    myTabPage1:Hide();
+                    myTabPage6:Show();
+                </OnClick>
+            </Scripts>
+        </Button>		   	   
+          
+    </Frames>
+
+
+    <Scripts>
+        <OnLoad>
+        tinsert(UISpecialFrames,"ConfigFrame");
+
+            this.elapsed = 0;
+            PanelTemplates_SetNumTabs(ConfigFrame, 6);
+            PanelTemplates_SetTab(ConfigFrame, 1);
+        version_now:SetText('|cffffffffVersion 0.20b');
+      ConfigFrame:SetAlpha(1);
+        </OnLoad>
+        <OnShow>
+        PlaySound("UChatScrollButton");
+            PanelTemplates_SetTab(ConfigFrame, 1);
+            myTabPage1:Show();
+            myTabPage2:Hide();
+      myTabPage3:Hide();
+        myTabPage4:Hide();
+      myTabPage6:Hide();
+        </OnShow>
+        <OnMouseDown> this:StartMoving();  </OnMouseDown>
+        <OnMouseUp>  this:StopMovingOrSizing(); </OnMouseUp>
+        <OnDragStop> this:StopMovingOrSizing(); </OnDragStop>
+    <OnHide>PlaySound("UChatScrollButton");</OnHide>		   
+    </Scripts>
+  </Frame>
+
+</Ui>

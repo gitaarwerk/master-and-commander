@@ -1,0 +1,7 @@
+- initialize, here are all initialization scripts (like slashcommands etc)
+- load utilities using xml files
+- load feature: configuration screen interface and also loads the lua stored SavedVariablesPerCharacter
+- Load feature: statistics bar
+- Load feature: hud
+- Load feature: taunt messages
+- Load feature: Aura warnings

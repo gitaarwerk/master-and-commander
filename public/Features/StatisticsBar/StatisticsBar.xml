@@ -1,0 +1,405 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+  <Script file="Features/StatisticsBar/StatisticsBar.lua" />
+  <Frame name="MasterAndCommander_StatisticsBarFrame" enableMouse="true" toplevel="true" frameStrata="LOW" movable="true" hidden="true" parent="UIParent">
+    <Scripts>
+      <OnLoad>
+        self:RegisterEvent("ADDON_LOADED");
+        self:RegisterEvent("UNIT_AURA");
+        self:RegisterEvent("REPLACE_ENCHANT");
+        self:RegisterEvent("UNIT_INVENTORY_CHANGED");
+
+        healthDescription:SetText("health")
+        staminaDescription:SetText("stamina")
+        strengthDescription:SetText("strength")
+        effectiveArmorDescription:SetText("armor")
+        blockChanceDescription:SetText("block")
+        dodgeChanceDescription:SetText("dodge")
+        parryChanceDescription:SetText("parry")
+        leechDescription:SetText("leech")
+        masteryDescription:SetText("mastery")
+        hasteDescription:SetText("haste")
+        critChanceDescription:SetText("crit")
+        attackPowerDescription:SetText("attack")
+        spellDmgDescription:SetText("spell")
+        itemLevelDescription:SetText("ilevel")
+        versatalityDamageDoneDescription:SetText("vers")
+        avoidanceDescription:SetText("avoid")
+
+        healthDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        staminaDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        strengthDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        effectiveArmorDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        blockChanceDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        dodgeChanceDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        parryChanceDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        leechDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        masteryDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        hasteDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        critChanceDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        attackPowerDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        spellDmgDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        itemLevelDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        versatalityDamageDoneDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+        avoidanceDescription:SetTextColor(1.0, 1.0, 1.0, 1)
+      </OnLoad>
+      <OnEvent>
+        if (event == "ADDON_LOADED" or event == "UNIT_AURA" or "REPLACE_ENCHANT" or "UNIT_INVENTORY_CHANGED" ) then 
+          local 
+            health, 
+            stamina, 
+            strength,  
+            effectiveArmor, 
+            blockChance, 
+            dodgeChance, 
+            parryChance, 
+            leech, 
+            mastery, 
+            haste, 
+            critChance, 
+            attackPower, 
+            spellDmg, 
+            meleeLowDamage, 
+            melleeHighDamage, 
+            itemLevel, 
+            avoidance, 
+            versatalityDamageDone, 
+            versatalityDamageTaken = getStats()
+
+          healthText:SetText(health)
+          staminaText:SetText(stamina)
+          strengthText:SetText(strength)
+          effectiveArmorText:SetText(effectiveArmor)
+          blockChanceText:SetText(blockChance)
+          dodgeChanceText:SetText(dodgeChance)
+          parryChanceText:SetText(parryChance)
+          leechText:SetText(leech)
+          masteryText:SetText(mastery)
+          hasteText:SetText(haste)
+          critChanceText:SetText(critChance)
+          spellDmgText:SetText(spellDamage)
+          attackPowerText:SetText(attackPower)
+          spellDmgText:SetText(spellDmg)
+          itemLevelText:SetText(itemLevel)
+          versatalityDamageDoneText:SetText(versatalityDamageDone)
+          avoidanceText:SetText(avoidance)
+        end
+      </OnEvent>
+    </Scripts>
+    <Size>
+      <AbsDimension x="799" y="36" />
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER" />
+      <Offset>
+        <AbsDimension x="0" y="0" />
+      </Offset>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture name="$parent_Background" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.30" />
+        </Texture>
+      </Layer>
+      <Layer level="ARTWORK">
+        <FontString name="healthDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="3" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="staminaDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="56" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="strengthDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="109" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>     
+        <FontString name="effectiveArmorDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="159" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="blockChanceDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="209" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="critChanceDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="259" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- haste -->
+        <FontString name="hasteDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="309" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- mastery -->
+        <FontString name="masteryDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="359" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- versatality damage done -->
+        <FontString name="versatalityDamageDoneDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="409" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- leech -->
+        <FontString name="leechDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="459" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- avoidance -->
+        <FontString name="avoidanceDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="509" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- dodge -->
+        <FontString name="dodgeChanceDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="559" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <!-- parry -->
+        <FontString name="parryChanceDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="609" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="attackPowerDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="659" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="spellDmgDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="709" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="itemLevelDescription" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="759" y="-3" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer level="OVERLAY">
+        <FontString name="healthText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="3" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="staminaText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="56" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="strengthText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="109" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>        
+       <FontString name="effectiveArmorText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="159" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="blockChanceText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="209" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="critChanceText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="259" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="hasteText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="309" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="masteryText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="359" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="versatalityDamageDoneText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="409" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="leechText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="459" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="avoidanceText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="509" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="dodgeChanceText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="559" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="parryChanceText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="609" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="attackPowerText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="659" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="spellDmgText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="709" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="itemLevelText" inherits="GameFontNormalSmall" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+              <Offset>
+                <AbsDimension x="759" y="-19" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>
